@@ -60,8 +60,6 @@ Request=$(curl -sIkX GET $1 | grep "HTTP" | cut -d " " -f2);
         fi
 done
 
-
-# Original completo
 else
 setterm -foreground red && echo "[+]------------------------- Rate Limit Validation -------------------------[+]"
 echo ""
