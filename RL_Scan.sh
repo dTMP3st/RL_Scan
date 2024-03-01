@@ -8,7 +8,7 @@ if [ "$1" == "" ]; then
 	echo "Non-Authenticated test: $0 <Target>"
 	echo "Authenticated test: $0 <Target> <Access_Token> <Client_ID>"
 elif [ "$2" == "" ] && [ "$3" == "" ]; then
-setterm -foreground red && echo "[+]------------------------- Rate Limit Validation -------------------------[+]"
+setterm -foreground red && echo "[+]------------------------- RL Scan -------------------------[+]"
 echo ""
 echo "Developed by > Cyber Strike Force Team"
 echo ""
@@ -19,8 +19,8 @@ for Loop in {1..1000}; do
 Request=$(curl -sIkX GET $1 | grep "HTTP" | cut -d " " -f2);
         if [ "$Request" == "200" ]; then
                 Request_Success=$(echo "$Request_Success"+1|bc)
-                echo "		Request Number [$Loop] - [SUCESS]" >> /dev/null
-		echo "[+]-------------------------------------------------[+]" >> /dev/null
+                echo "		Request Number [$Loop] - [SUCESS]" # >> /dev/null
+		echo "[+]-------------------------------------------------[+]" # >> /dev/null
         elif [ "$Request" == "429" ]; then
                 Time_Out=$(date | cut -d " " -f5)
                 Request_Failure=$(echo "$Request_Failure"+1|bc)
@@ -50,8 +50,8 @@ Request=$(curl -sIkX GET $1 | grep "HTTP" | cut -d " " -f2);
 				setterm -foreground default
                                 exit
                         else
-                                echo "          Request Failure - [FAILURE]" >> /dev/null
-		                echo "[+]-------------------------------------------------[+]" >> /dev/null
+                                echo "          Request Failure - [FAILURE]" # >> /dev/null
+		                echo "[+]-------------------------------------------------[+]" # >> /dev/null
 
                         fi
                 done
@@ -61,7 +61,7 @@ Request=$(curl -sIkX GET $1 | grep "HTTP" | cut -d " " -f2);
 done
 
 else
-setterm -foreground red && echo "[+]------------------------- Rate Limit Validation -------------------------[+]"
+setterm -foreground red && echo "[+]------------------------- RL Scan -------------------------[+]"
 echo ""
 echo "Developed by > Cyber Strike Force LABS "
 echo ""
