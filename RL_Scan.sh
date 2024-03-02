@@ -21,6 +21,11 @@ Request=$(curl -sIkX GET $1 | grep "HTTP" | cut -d " " -f2);
                 Request_Success=$(echo "$Request_Success"+1|bc)
                 echo "		Request Number [$Loop] - [SUCESS]" # >> /dev/null
 		echo "[+]-------------------------------------------------[+]" # >> /dev/null
+                        if [ "$Request_Success" == "1000" ]; then
+                                echo "The application don't has rate limit control"
+                        else
+                                echo "The application drop packets"
+                        fi
         elif [ "$Request" == "429" ]; then
                 Time_Out=$(date | cut -d " " -f5)
                 Request_Failure=$(echo "$Request_Failure"+1|bc)
