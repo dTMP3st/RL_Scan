@@ -62,6 +62,7 @@ Request=$(curl -sIkX GET $1 | grep "HTTP" | cut -d " " -f2);
                 done
         else
                 echo "An error has occurred"
+                echo "Status code different 200 or 429"
         fi
 done
 
