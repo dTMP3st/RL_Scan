@@ -10,13 +10,14 @@ if [ "$1" == "" ]; then
 elif [ "$2" == "" ] && [ "$3" == "" ]; then
 setterm -foreground red && echo "[+]------------------------- RL Scan -------------------------[+]"
 echo ""
-echo "Developed by > Cyber Strike Force Team"
+echo "Developed by > dTMP3st"
+echo "Cyber Strike Force"
 echo ""
 Request_Success="0"
 Request_Failure="0"
 Time=$(date | cut -d " " -f5)
 for Loop in {1..1000}; do
-Request=$(curl -sIkX GET $1 | grep "HTTP" | cut -d " " -f2);
+Request=$(curl -sIkX GET -A "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0" $1 | grep "HTTP" | cut -d " " -f2);
         if [ "$Request" == "200" ]; then
                 Request_Success=$(echo "$Request_Success"+1|bc)
                 echo "		Request Number [$Loop] - [SUCESS]" # >> /dev/null
