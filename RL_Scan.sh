@@ -28,24 +28,11 @@ Rate_Limit_Implemented () {
 
 Rate_Limit_Failure (){
         Time_Return=$(date | cut -d " " -f5)
+	setterm -foreground blue && echo "	[+] Test Mode: Non-Authenticated"
+        setterm -foreground red && echo "	[+] The limit of requests to the API before the Rate Limit control starts acting is $Request_Success Requests."
         setterm -foreground blue && echo "	[*] Start Time: $Time"
-        setterm -foreground red && echo "	[*] Stop time: $Time_Out"
-        setterm -foreground green && echo "	[*] Return Time: $Time_Return"
-        Hours_Return=$(echo "$Time_Return" | cut -d ":" -f1) 
-        Minutes_Return=$(echo "$Time_Return" | cut -d ":" -f2)
-        Seconds_Return=$(echo "$Time_Return" | cut -d ":" -f3)
-        Hours_Out=$(echo "$Time" | cut -d ":" -f1) 
-        Minutes_Out=$(echo "$Time" | cut -d ":" -f2)
-        Seconds_Out=$(echo "$Time" | cut -d ":" -f3)
-        Hours_Result=$(echo "$Hours_Return-$Hours_Out"|bc)
-        Minutes_Result=$(echo "$Minutes_Return-$Minutes_Out"|bc)
-        Seconds_Result=$(echo "$Seconds_Return-$Seconds_Out"|bc)
-        Date_Result=$(echo "Rate Limit Control denies requests for $Hours_Result hour(s), $Minutes_Result minute(s) e $Seconds_Result seconds(s).." | tr --delete "-")
-        setterm -foreground red && echo "       [+] $Date_Result"
 	echo ""
 	echo "[+]-------------------------------------------------------------------------[+]"
-	setterm -foreground default
-        exit
 }
 
 if [ "$1" == "" ]; then
@@ -61,20 +48,14 @@ echo ""
 Request_Success="0"
 Request_Failure="0"
 Time=$(date | cut -d " " -f5)
-for Loop in {1..10000}; do
+for Loop in {1..1000}; do
 Request=$(curl -sIkX GET -A "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0" $1 | grep "HTTP" | cut -d " " -f2)
         if [ "$Request" == "200" ]; then
                 Request_Success=$(echo "$Request_Success"+1|bc)
                 echo "		Request Number [$Loop] - [SUCESS]" # >> /dev/null
 		echo "[+]-------------------------------------------------[+]" # >> /dev/null
-                        if [ "$Request_Success" == "10000" ]; then
-                                echo "The application don't has rate limit control"
-                                Time_Return=$(date | cut -d " " -f5)
-				setterm -foreground blue && echo "	[+] Test Mode: Non-Authenticated"
-                                setterm -foreground red && echo "	[+] The limit of requests to the API before the Rate Limit control starts acting is $Request_Success Requests."
-                                setterm -foreground blue && echo "	[*] Start Time: $Time"
-				echo ""
-				echo "[+]-------------------------------------------------------------------------[+]"
+                        if [ "$Request_Success" == "1000" ]; then
+                                $Rate_Limit_Failure
                         else
                                 echo "$Loop $Request_Success"
                         fi
