@@ -28,9 +28,9 @@ Rate_Limit_Implemented () {
 
 Rate_Limit_Failure (){
         Time_Return=$(date | cut -d " " -f5)
-	setterm -foreground blue && echo "	[+] Test Mode: Non-Authenticated"
-        setterm -foreground red && echo "	[+] The limit of requests to the API before the Rate Limit control starts acting is $Request_Success Requests."
         setterm -foreground blue && echo "	[*] Start Time: $Time"
+	setterm -foreground blue && echo "	[+] Test Mode: Non-Authenticated"
+        setterm -foreground red && echo "	[+] There is no rate limit control implemented for API protection"
 	echo ""
 	echo "[+]-------------------------------------------------------------------------[+]"
 }
