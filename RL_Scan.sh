@@ -57,7 +57,7 @@ Request=$(curl -sIkX GET -A "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/201
                         if [ "$Request_Success" == "1000" ]; then
                                 $Rate_Limit_Failure
                         else
-                                echo "$Loop $Request_Success"
+                                $Rate_Limit_Implemented
                         fi
         elif [ "$Request" == "429" ]; then
                 Time_Out=$(date | cut -d " " -f5)
