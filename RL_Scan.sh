@@ -54,10 +54,17 @@ Request=$(curl -sIkX GET -A "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/201
                 Request_Success=$(echo "$Request_Success"+1|bc)
                 echo "		Request Number [$Loop] - [SUCESS]" # >> /dev/null
 		echo "[+]-------------------------------------------------[+]" # >> /dev/null
-                        if [ "$Request_Success" == "1000" ]; then
-                                $Rate_Limit_Failure
+                        if [ "$Loop" == "1000" ] && [ "$Loop" == "$Request_Success" ]; then
+                                echo "Requisições com sucesso: $Request_Success"
+                                echo "Requisições com falha: $Request_Failure"
+                                Rate_Limit_Failure
                         else
-                                $Rate_Limit_Implemented
+                                echo "Wait" >> /dev/null
+                                if [ "$Loop" == "1000" ]; then
+                                        Rate_Limit_Implemented
+                                else
+                                        echo "Wait" >> /dev/null
+                                fi
                         fi
         elif [ "$Request" == "429" ]; then
                 Time_Out=$(date | cut -d " " -f5)
