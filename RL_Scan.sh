@@ -52,7 +52,7 @@ echo ""
 echo "[+]-------------------------------------------------[+]" # >> /dev/null
 Request_Success="0"
 Request_Failure="0"
-Request_Number="10000"
+Request_Number="5000"
 Time=$(date | cut -d " " -f5)
 for Loop in {1..$Request_Number}; do
 Request=$(curl -sIkX GET -A "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0" $1 | grep "HTTP" | cut -d " " -f2)
@@ -103,7 +103,7 @@ Request=$(curl -sIkX GET -A "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/201
                 echo "An error has occurred" >> /dev/null
                 Request_Failure=$(echo "$Request_Failure"+1|bc)
                 echo "Request Number [$Loop] - [FAILURE]" # >> /dev/null
-                if [ "$Loop" == "1000" ]; then
+                if [ "$Loop" == "$Request_Number" ]; then
                         Request_Failure=$(echo "$Request_Failure"+1|bc)
                         echo "Request Number [$Loop] - [FAILURE]" # >> /dev/null
 		        echo "[+]-------------------------------------------------[+]" # >> /dev/null
