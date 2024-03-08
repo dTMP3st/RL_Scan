@@ -52,22 +52,18 @@ echo ""
 echo "[+]-------------------------------------------------[+]" # >> /dev/null
 Request_Success="0"
 Request_Failure="0"
+Request_Number="10000"
 Time=$(date | cut -d " " -f5)
-for Loop in {1..1000}; do
+for Loop in {1..$Request_Number}; do
 Request=$(curl -sIkX GET -A "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0" $1 | grep "HTTP" | cut -d " " -f2)
         if [ "$Request" == "200" ]; then
                 Request_Success=$(echo "$Request_Success"+1|bc)
                 echo "		Request Number [$Loop] - [SUCESS]" # >> /dev/null
 		echo "[+]-------------------------------------------------[+]" # >> /dev/null
-                        if [ "$Loop" == "1000" ] && [ "$Loop" == "$Request_Success" ]; then
+                        if [ "$Loop" == "$Request_Number" ] && [ "$Loop" == "$Request_Success" ]; then
                                 Rate_Limit_Failure
                         else
                                 echo "Wait" >> /dev/null
-                                if [ "$Loop" == "1000" ]; then
-                                        Rate_Limit_Implemented
-                                else
-                                        echo "Wait" >> /dev/null
-                                fi
                         fi
         elif [ "$Request" == "429" ]; then
                 Time_Out=$(date | cut -d " " -f5)
@@ -119,6 +115,7 @@ Request=$(curl -sIkX GET -A "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/201
         fi
 done
 
+# AUTH
 else
 setterm -foreground red && echo "[+]------------------------- RL Scan -------------------------[+]"
 echo ""
