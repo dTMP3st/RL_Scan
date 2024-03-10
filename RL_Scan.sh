@@ -120,7 +120,8 @@ done
 else
 setterm -foreground red && echo "[+]------------------------- RL Scan -------------------------[+]"
 echo ""
-echo "Developed by > Cyber Strike Force LABS "
+echo "Developed by > dTMP3st"
+echo "Cyber Strike Force"
 echo ""
 
 Request_Success="0"
