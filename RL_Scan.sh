@@ -54,13 +54,13 @@ Request_Success="0"
 Request_Failure="0"
 # Request_Number=5000 - Try Success
 Time=$(date | cut -d " " -f5)
-for Loop in {1..5000}; do
+for Loop in {1..1000}; do
 Request=$(curl -sIkX GET -A "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0" $1 | grep "HTTP" | cut -d " " -f2)
         if [ "$Request" == "200" ]; then
                 Request_Success=$(echo "$Request_Success"+1|bc)
                 echo "		Request Number [$Loop] - [SUCESS]" # >> /dev/null
 		echo "[+]-------------------------------------------------[+]" # >> /dev/null
-                        if [ "$Loop" == "5000" ] && [ "$Loop" == "$Request_Success" ]; then
+                        if [ "$Loop" == "1000" ] && [ "$Loop" == "$Request_Success" ]; then
                                 Rate_Limit_Failure
                         else
                                 echo "Wait" >> /dev/null
@@ -104,7 +104,7 @@ Request=$(curl -sIkX GET -A "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/201
                 Request_Failure=$(echo "$Request_Failure"+1|bc)
                 echo "$Request"
                 # echo "Request Number [$Loop] - [FAILURE]" # >> /dev/null
-                if [ "$Loop" == "5000" ]; then
+                if [ "$Loop" == "1000" ]; then
                         Request_Failure=$(echo "$Request_Failure"+1|bc)
                         echo "Request Number [$Loop] - [FAILURE]" # >> /dev/null
 		        echo "[+]-------------------------------------------------[+]" # >> /dev/null
