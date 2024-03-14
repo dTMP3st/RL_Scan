@@ -7,6 +7,7 @@ Rate_Limit_Implemented () {
         Time_Return=$(date | cut -d " " -f5)
         echo "Requisições com sucesso: $Request_Success"
         echo "Requisições com falha: $Request_Failure"
+        echo ""
         setterm -foreground red && echo "	[+] The limit of requests to the API before the Rate Limit control starts acting is $Request_Success Requests."
         setterm -foreground blue && echo "	[*] Start Time: $Time"
         setterm -foreground red && echo "	[*] Stop time: $Time_Out"
@@ -32,6 +33,7 @@ Rate_Limit_Failure (){
         Time_Return=$(date | cut -d " " -f5)
         echo "Requisições com sucesso: $Request_Success"
         echo "Requisições com falha: $Request_Failure"
+        echo ""
         setterm -foreground blue && echo "	[*] Start Time: $Time"
 	setterm -foreground blue && echo "	[+] Test Mode: Non-Authenticated"
         setterm -foreground red && echo "	[+] There is no rate limit control implemented for API protection"
