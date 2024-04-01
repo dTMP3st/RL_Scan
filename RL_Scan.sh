@@ -30,7 +30,6 @@ Rate_Limit_Implemented () {
 }
 
 Rate_Limit_Failure (){
-        echo ""
         Time_Return=$(date | cut -d " " -f5)
         echo "Requisições com sucesso: $Request_Success"
         echo "Requisições com falha: $Request_Failure"
