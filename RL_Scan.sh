@@ -30,6 +30,7 @@ Rate_Limit_Implemented () {
 }
 
 Rate_Limit_Failure (){
+        echo ""
         Time_Return=$(date | cut -d " " -f5)
         echo "Requisições com sucesso: $Request_Success"
         echo "Requisições com falha: $Request_Failure"
@@ -51,7 +52,7 @@ echo ""
 echo "Developed by > dTMP3st"
 echo "Cyber Strike Force"
 echo ""
-echo "[+]-------------------------------------------------[+]" # >> /dev/null
+echo "[+]-------------------------------------------------[+]" >> /dev/null
 Request_Success="0"
 Request_Failure="0"
 # Request_Number=5000 - Try Success
@@ -60,8 +61,8 @@ for Loop in {1..1000}; do
 Request=$(curl -sIkX GET -A "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0" $1 | grep "HTTP" | cut -d " " -f2)
         if [ "$Request" == "200" ]; then
                 Request_Success=$(echo "$Request_Success"+1|bc)
-                echo "		Request Number [$Loop] - [SUCESS]" # >> /dev/null
-		echo "[+]-------------------------------------------------[+]" # >> /dev/null
+                echo "		Request Number [$Loop] - [SUCESS]" >> /dev/null
+		echo "[+]-------------------------------------------------[+]" >> /dev/null
                         if [ "$Loop" == "1000" ] && [ "$Loop" == "$Request_Success" ]; then
                                 Rate_Limit_Failure
                         else
@@ -96,8 +97,8 @@ Request=$(curl -sIkX GET -A "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/201
 				setterm -foreground default
                                 exit
                         else
-                                echo "          Request Failure - [FAILURE]" # >> /dev/null
-		                echo "[+]-------------------------------------------------[+]" # >> /dev/null
+                                echo "          Request Failure - [FAILURE]" >> /dev/null
+		                echo "[+]-------------------------------------------------[+]" >> /dev/null
 
                         fi
                 done
