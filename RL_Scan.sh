@@ -54,7 +54,7 @@ echo ""
 echo "[+]-------------------------------------------------[+]" >> /dev/null
 Request_Success="0"
 Request_Failure="0"
-# Request_Number=5000 - Try Success
+
 Time=$(date | cut -d " " -f5)
 for Loop in {1..1000}; do
 Request=$(curl -sIkX GET -A "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0" $1 | grep "HTTP" | cut -d " " -f2)
