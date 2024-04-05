@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# clear
+clear
 echo ""
 
 Rate_Limit_Implemented () {
@@ -105,11 +105,10 @@ Request=$(curl -sIkX GET -A "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/201
                 echo "An error has occurred" >> /dev/null
                 Request_Failure=$(echo "$Request_Failure"+1|bc)
                 echo "$Request"
-                # echo "Request Number [$Loop] - [FAILURE]" # >> /dev/null
                 if [ "$Loop" == "1000" ]; then
                         Request_Failure=$(echo "$Request_Failure"+1|bc)
-                        echo "Request Number [$Loop] - [FAILURE]" # >> /dev/null
-		        echo "[+]-------------------------------------------------[+]" # >> /dev/null
+                        echo "Request Number [$Loop] - [FAILURE]"
+		        echo "[+]-------------------------------------------------[+]"
                         echo ""
                         Rate_Limit_Implemented
                 else
