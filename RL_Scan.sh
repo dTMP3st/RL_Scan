@@ -1,6 +1,8 @@
 #!/bin/bash
 
 clear
+UserAgent="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
+
 echo ""
 
 Rate_Limit_Implemented () {
@@ -51,28 +53,23 @@ echo ""
 echo "Developed by > dTMP3st"
 echo "Cyber Strike Force"
 echo ""
-echo "[+]-------------------------------------------------[+]" >> /dev/null
+echo "[+]-------------------------------------------------[+]" # >> /dev/null
 Request_Success="0"
 Request_Failure="0"
 
 Time=$(date | cut -d " " -f5)
 for Loop in {1..1000}; do
-Request=$(curl -sIkX GET -A "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0" $1 | grep "HTTP" | cut -d " " -f2)
+Request=$(curl -sIkX GET -A $UserAgent $1 | grep "HTTP" | cut -d " " -f2)
         if [ "$Request" == "200" ]; then
                 Request_Success=$(echo "$Request_Success"+1|bc)
-                echo "		Request Number [$Loop] - [SUCESS]" >> /dev/null
-		echo "[+]-------------------------------------------------[+]" >> /dev/null
-                        if [ "$Loop" == "1000" ] && [ "$Loop" == "$Request_Success" ]; then
-                                Rate_Limit_Failure
-                        else
-                                echo "Wait" >> /dev/null
-                        fi
+                echo "		Request Number [$Loop] - [SUCESS]" # >> /dev/null
+		echo "[+]-------------------------------------------------[+]" # >> /dev/null
         elif [ "$Request" == "429" ]; then
                 Time_Out=$(date | cut -d " " -f5)
                 Request_Failure=$(echo "$Request_Failure"+1|bc)
 		echo "[+] Validating the turnaround time"
                 for Loop2 in {1..5000}; do
-                Request2=$(curl -sIkX GET $1 | grep "HTTP" | cut -d " " -f2);
+                Request2=$(curl -sIkX GET -A $UserAgent $1 | grep "HTTP" | cut -d " " -f2);
                         if [ "$Request2" == "200" ]; then
                                 Time_Return=$(date | cut -d " " -f5)
 				setterm -foreground blue && echo "	[+] Test Mode: Non-Authenticated"
@@ -129,12 +126,13 @@ Request_Success="0"
 Request_Failure="0"
 Time=$(date | cut -d " " -f5)
 for Loop in {1..1000}; do
-Request=$(curl -sIkX GET $1 -H $'access_token: '$2'' -H $'client_id: '$3'' | grep "HTTP" | cut -d " " -f2);
+Request=$(curl -sIkX GET $1 -H $'user-agent: '$UserAgent'' -H $'access_token: '$2'' -H $'client_id: '$3'' | grep "HTTP" | cut -d " " -f2);
 	if [ "$Request" == "200" ]; then
 		Request_Success=$(echo "$Request_Success"+1|bc)
-                echo "          Request Number [$Loop] - [SUCESS]" >> /dev/null
-                echo "[+]-------------------------------------------------[+]" >> /dev/null
+                echo "          Request Number [$Loop] - [SUCESS]" # >> /dev/null
+                echo "[+]-------------------------------------------------[+]" # >> /dev/null
 	elif [ "$Request" == "429" ]; then
+		echo "$Request"
 		Time_Out=$(date | cut -d " " -f5)
 		Request_Failure=$(echo "$Request_Failure"+1|bc)
 		echo "	[+] Validating the turnaround time"
