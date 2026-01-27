@@ -1,7 +1,10 @@
 #!/bin/bash
 
 clear
+
+#Variables
 UserAgent="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
+Date=$(date | awk '{print $1,$2,$3,$4,$5}')
 
 echo ""
 
@@ -52,17 +55,19 @@ setterm -foreground red && echo "[+]------------------------- RL Scan ----------
 echo ""
 echo "Developed by > dTMP3st"
 echo "Cyber Strike Force"
+echo "Date: $Date"
 echo ""
 echo "[+]-------------------------------------------------[+]" # >> /dev/null
 Request_Success="0"
 Request_Failure="0"
 
-Time=$(date | cut -d " " -f5)
 for Loop in {1..1000}; do
+
+Time=$(date | cut -d " " -f5)
 Request=$(curl -sIkX GET -A $UserAgent $1 | grep "HTTP" | cut -d " " -f2)
         if [ "$Request" == "200" ]; then
                 Request_Success=$(echo "$Request_Success"+1|bc)
-                echo "		Request Number [$Loop] - [SUCESS]" # >> /dev/null
+                echo "		Request Number [$Loop] - [SUCESS] - [$Time]" # >> /dev/null
 		echo "[+]-------------------------------------------------[+]" # >> /dev/null
         elif [ "$Request" == "429" ]; then
                 Time_Out=$(date | cut -d " " -f5)
@@ -93,7 +98,7 @@ Request=$(curl -sIkX GET -A $UserAgent $1 | grep "HTTP" | cut -d " " -f2)
 				setterm -foreground default
                                 exit
                         else
-                                echo "          Request Failure - [FAILURE]" >> /dev/null
+                                echo "          Request Failure - [FAILURE] - [$Time]" >> /dev/null
 		                echo "[+]-------------------------------------------------[+]" >> /dev/null
 
                         fi
@@ -104,7 +109,7 @@ Request=$(curl -sIkX GET -A $UserAgent $1 | grep "HTTP" | cut -d " " -f2)
                 echo "$Request"
                 if [ "$Loop" == "1000" ]; then
                         Request_Failure=$(echo "$Request_Failure"+1|bc)
-                        echo "Request Number [$Loop] - [FAILURE]"
+                        echo "Request Number [$Loop] - [FAILURE] - [$Time]"
 		        echo "[+]-------------------------------------------------[+]"
                         echo ""
                         Rate_Limit_Implemented
@@ -129,7 +134,7 @@ for Loop in {1..1000}; do
 Request=$(curl -sIkX GET $1 -H $'user-agent: '$UserAgent'' -H $'access_token: '$2'' -H $'client_id: '$3'' | grep "HTTP" | cut -d " " -f2);
 	if [ "$Request" == "200" ]; then
 		Request_Success=$(echo "$Request_Success"+1|bc)
-                echo "          Request Number [$Loop] - [SUCESS]" # >> /dev/null
+                echo "          Request Number [$Loop] - [SUCESS] - [$Time]" # >> /dev/null
                 echo "[+]-------------------------------------------------[+]" # >> /dev/null
 	elif [ "$Request" == "429" ]; then
 		echo "$Request"
@@ -161,7 +166,7 @@ Request=$(curl -sIkX GET $1 -H $'user-agent: '$UserAgent'' -H $'access_token: '$
 				setterm -foreground default
 				exit
 			else
-                                echo "          Request Failure - [FAILURE]" >> /dev/null
+                                echo "          Request Failure - [FAILURE] - [$Time]" >> /dev/null
                                 echo "[+]-------------------------------------------------[+]" >> /dev/null
 			fi
 		done
